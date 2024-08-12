@@ -1,0 +1,12 @@
+C:\Users\hp7\source\repos\FHP.RES\bin\Debug\FHP.RES.dll
+C:\Users\hp7\source\repos\FHP.RES\bin\Debug\FHP.RES.pdb
+C:\Users\hp7\source\repos\FHP.RES\obj\Debug\FHP.RES.csproj.AssemblyReference.cache
+C:\Users\hp7\source\repos\FHP.RES\obj\Debug\FHP.RES.csproj.CoreCompileInputs.cache
+C:\Users\hp7\source\repos\FHP.RES\obj\Debug\FHP.RES.dll
+C:\Users\hp7\source\repos\FHP.RES\obj\Debug\FHP.RES.pdb
+C:\Users\hp7\source\repos\FHP\FHP.RES\bin\Debug\FHP.RES.dll
+C:\Users\hp7\source\repos\FHP\FHP.RES\bin\Debug\FHP.RES.pdb
+C:\Users\hp7\source\repos\FHP\FHP.RES\obj\Debug\FHP.RES.csproj.AssemblyReference.cache
+C:\Users\hp7\source\repos\FHP\FHP.RES\obj\Debug\FHP.RES.csproj.CoreCompileInputs.cache
+C:\Users\hp7\source\repos\FHP\FHP.RES\obj\Debug\FHP.RES.dll
+C:\Users\hp7\source\repos\FHP\FHP.RES\obj\Debug\FHP.RES.pdb
