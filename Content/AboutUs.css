@@ -1,0 +1,36 @@
+﻿body {
+    font-size: 16px;
+    font-family: 'Times New Roman', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: silver;
+}
+
+header {
+    background-color: silver;
+    color: blue;
+    text-align: center;
+    font-size: 20px;
+}
+
+.about-section {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: silver;
+    border: 1px silver;
+    border-radius: 5px;
+    max-width: 600px;
+    font-family: Garamond;
+}
+
+    .about-section pre {
+        margin: 10px 0;
+        font-size: 18px;
+        background-color: silver;
+        font-family: Garamond;
+    }
+
+.footer-section p {
+    margin-left: 375px;
+    font-family: Garamond;
+}
