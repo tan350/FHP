@@ -1,0 +1,140 @@
+﻿@model IEnumerable<FHP.VO.RecordVO>
+
+@{
+    ViewBag.Title = "Employee Details";
+}
+
+<h2>Employee Details</h2>
+<link href="~/Content/Default_Index.css" rel="stylesheet" />
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-outline-success" })
+</p>
+<table id="recordsTable" class="table table-striped table-bordered table-hover">
+    <tr class="sticky-top bg-light">
+        <th>
+            @Html.ActionLink("Sr No.", "Index", "Default", new { sortColumn = "SrNo", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Prefix", "Index", "Default", new { sortColumn = "Prefix", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("First Name", "Index", "Default", new { sortColumn = "FirstName", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Middle Name", "Index", "Default", new { sortColumn = "MiddleName", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Last Name", "Index", "Default", new { sortColumn = "LastName", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("DOB", "Index", "Default", new { sortColumn = "DOB", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("DOJ", "Index", "Default", new { sortColumn = "DOJ", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Qualification", "Index", "Default", new { sortColumn = "Qualification", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Current Address", "Index", "Default", new { sortColumn = "Current Address", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+            @Html.ActionLink("Current Company", "Index", "Default", new { sortColumn = "CurrentCompany", sortDirection = ViewBag.SortDirection }, new { style = "text-decoration: none; color: inherit;" })
+            &#8645;
+        </th>
+        <th>
+        </th>
+    </tr>
+
+
+    <tr class=" bg-light" style="margin-top: 41px;">
+        <th>
+            @Html.TextBox("searchSrNo", null, new { @class = "form-control", placeholder = "Search Sr No" })
+        </th>
+        <th>
+            @Html.TextBox("searchPrefix", null, new { @class = "form-control", placeholder = "Search Prefix" })
+        </th>
+        <th>
+            @Html.TextBox("searchFirstName", null, new { @class = "form-control", placeholder = "Search First Name" })
+        </th>
+        <th>
+            @Html.TextBox("searchMiddleName", null, new { @class = "form-control", placeholder = "Search Middle Name" })
+        </th>
+        <th>
+            @Html.TextBox("searchLastName", null, new { @class = "form-control", placeholder = "Search Last Name" })
+        </th>
+        <th>
+            @Html.TextBox("searchDOB", null, new { @class = "form-control", placeholder = "Search DOB" })
+        </th>
+        <th>
+            @Html.TextBox("searchDOJ", null, new { @class = "form-control", placeholder = "Search DOJ" })
+        </th>
+        <th>
+            @Html.TextBox("searchQualification", null, new { @class = "form-control", placeholder = "Search Qualification" })
+        </th>
+        <th>
+            @Html.TextBox("searchCurrentAddress", null, new { @class = "form-control", placeholder = "Search Current Address" })
+        </th>
+        <th>
+            @Html.TextBox("searchCurrentCompany", null, new { @class = "form-control", placeholder = "Search Current Company" })
+        </th>
+        <th></th>
+    </tr>
+
+
+
+    @foreach (var item in Model)
+    {
+        <tr id="rowData">
+            <td class="searchSrNo">
+                @Html.DisplayFor(modelItem => item.SrNo)
+            </td>
+            <td class="searchPrefix">
+                @Html.DisplayFor(modelItem => item.Prefix)
+            </td>
+            <td class="searchFirstName">
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td class="searchMiddleName">
+                @Html.DisplayFor(modelItem => item.MiddleName)
+            </td>
+            <td class="searchLastName">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td class="searchDOB">
+                @item.DOB.ToString("d")
+            </td>
+            <td class="searchDOJ">
+                @item.DOJ.ToString("d")
+            </td>
+            <td class="searchQualification">
+                @Html.DisplayFor(modelItem => item.Qualification)
+            </td>
+            <td class="searchCurrentAddress">
+                @Html.DisplayFor(modelItem => item.CurrentAddress)
+            </td>
+            <td class="searchCurrentCompany">
+                @Html.DisplayFor(modelItem => item.CurrentCompany)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SrNo }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Details", "Details", new { id = item.SrNo }, new { @class = "btn btn-outline-info" })
+                @Html.ActionLink("Delete", "Delete", new { id = item.SrNo }, new { @class = "btn btn-outline-danger" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts {
+    <script src="~/Scripts/Searching.js"></script>
+}

@@ -1,0 +1,216 @@
+﻿@{
+    Layout = null;
+}
+
+@model List<FHP.VO.RecordVO>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <link rel="icon" type="image/ico" href="~/Content/favicon.ico" />
+    <title>File Handling Program</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/FHPUIForm.css" />
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                @*<li>@Html.ActionLink("New", "New", "FHP", null, new { id = "new-link" })</li>
+        <li>@Html.ActionLink("Update", "Update", "FHP", null, new { id = "update-link" })</li>*@
+                <li><a href="@Url.Action("New", "FHP")" id="new-link">New</a></li>
+                <li><a href="@Url.Action("Update", "FHP")" id="update-link">Update</a></li>
+
+                <li>@Html.ActionLink("Delete", "Delete", "FHP", null, new { id = "delete-link" })</li>
+                <li><a href="#">Clear/Search Filter</a></li>
+                @*<li>@Html.ActionLink("View", "Details", "FHP", null, new { id = "view-link" })</li>*@
+                <li><a href="@Url.Action("Details", "FHP")" id="view-link">View</a></li>
+                <li><a href="#" id="exitLink">Exit</a></li>
+                <li>@Html.ActionLink("About Us", "AboutUs", "FHP")</li>
+                <li><input type="text" id="searchInput" placeholder="Search..." /> <button id="searchButton">Search</button></li>
+                <li><button id="logoutButton">Logout</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="data-section">
+        <table>
+            <thead>
+                <tr>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "SrNo", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Sr No.</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "Prefix", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Prefix</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "FirstName", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">First Name</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "MiddleName", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Middle Name</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "LastName", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Last Name</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "DOB", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">DOB</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "DOJ", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">DOJ</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "Qualification", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Qualification</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "CurrentAddress", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Current Address</a></th>
+                    <th><a href="@Url.Action("Index", "FHP", new { sortColumn = "CurrentCompany", sortDirection = ViewBag.SortDirection })" style="text-decoration: none; color: inherit;">Current Company</a></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var Employee in Model)
+                {
+                    <tr data-id="@Employee.SrNo" class="clickable-row">
+                        <td>@Employee.SrNo</td>
+                        <td>@Employee.Prefix</td>
+                        <td>@Employee.FirstName</td>
+                        <td>@Employee.MiddleName</td>
+                        <td>@Employee.LastName</td>
+                        <td>@Employee.DOB.ToString("dd/MM/yyyy")</td>
+                        <td>@Employee.DOJ.ToString("dd/MM/yyyy")</td>
+
+                        <td>@Employee.Qualification</td>
+                        <td>@Employee.CurrentAddress</td>
+                        <td>@Employee.CurrentCompany</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $(document).on("dblclick", ".clickable-row", function () {
+                var employeeId = $(this).data('id');
+                window.location.href = "/FHP/Details/" + employeeId;
+            });
+
+            var rowClicked = false;
+
+            $(document).on("click", ".clickable-row", function () {
+                var employeeId = $(this).data('id');
+                $("#update-link").data("employee-id", employeeId);
+                $("#view-link").data("employee-id", employeeId);
+                $("#delete-link").data("employee-id", employeeId);
+
+                rowClicked = true;
+            });
+
+            $('#new-link').click(function () {
+                $(this).attr('href', function (i, href) {
+                    return href + '?disableEditButton=true';
+                });
+            });
+
+            $("#update-link").click(function (e) {
+                e.preventDefault();
+
+                if (rowClicked) {
+                    var employeeId = $(this).data("employee-id");
+                    var updateUrl = "/FHP/Update?id=" + employeeId;
+                    window.location.href = updateUrl;
+                }
+            });
+
+            $("#view-link").click(function (e) {
+                e.preventDefault();
+                if (rowClicked) {
+                    var employeeId = $(this).data("employee-id");
+                    var viewUrl = "/FHP/Details?id=" + employeeId;
+                    window.location.href = viewUrl;
+                }
+            });
+
+            $("#delete-link").click(function (e) {
+                e.preventDefault();
+                if (rowClicked) {
+                    var employeeId = $(this).data("employee-id");
+                    var deleteUrl = "/FHP/Delete?id=" + employeeId;
+
+                    $.ajax({
+                        type: "POST",
+                        url: deleteUrl,
+                        dataType: "xml", 
+                        success: function (xml) {
+                            
+                            updateTable(xml);
+                            alert("Record deleted successfully");
+                        },
+                        error: function (xhr, status, error) {
+                           
+                            alert("Error deleting record");
+                        }
+                    });
+                }
+            });
+
+            var exitLink = document.getElementById('exitLink');
+            exitLink.addEventListener('click', function (event) {
+
+                event.preventDefault();
+
+                var confirmation = confirm('Are you sure you want to leave the site?');
+
+                if (confirmation) {
+                    window.location.href = "UserAuthentication/Index";
+                }
+            });
+
+            document.getElementById('logoutButton').addEventListener('click', function () {
+
+                window.location.href = '@Url.Action("LogOff", "FHP")';
+            });
+
+            function updateTable(xml) {
+
+                $("tbody").empty();
+
+                $(xml).find("Record").each(function () {
+                    var srNo = $(this).find("SrNo").text();
+                    var prefix = $(this).find("Prefix").text();
+                    var firstName = $(this).find("FirstName").text();
+                    var middleName = $(this).find("MiddleName").text();
+                    var lastName = $(this).find("LastName").text();
+                    var dob = $(this).find("DOB").text();
+                    var doj = $(this).find("DOJ").text();
+                    var qualification = $(this).find("Qualification").text();
+                    var currentAddress = $(this).find("CurrentAddress").text();
+                    var currentCompany = $(this).find("CurrentCompany").text();
+
+                    var newRow = "<tr data-id='" + srNo + "' class='clickable-row'>" +
+                        "<td>" + srNo + "</td>" +
+                        "<td>" + prefix + "</td>" +
+                        "<td>" + firstName + "</td>" +
+                        "<td>" + middleName + "</td>" +
+                        "<td>" + lastName + "</td>" +
+                        "<td>" + dob + "</td>" +
+                        "<td>" + doj + "</td>" +
+                        "<td>" + qualification + "</td>" +
+                        "<td>" + currentAddress + "</td>" +
+                        "<td>" + currentCompany + "</td>" +
+                        "</tr>";
+                    $("tbody").append(newRow);
+                });
+            }
+
+            $("#searchButton").click(function () {
+                var searchText = $("#searchInput").val().toLowerCase();
+                $("table tbody tr").each(function () {
+                    var found = false;
+                    $(this).find("td").each(function () {
+                        if ($(this).text().toLowerCase().indexOf(searchText) !== -1) {
+                            found = true;
+                            return false; 
+                        }
+                    });
+                    if (found) {
+                        $(this).show(); 
+                    } else {
+                        $(this).hide(); 
+                    }
+                });
+            });
+
+            $("li a[href='#']").click(function (e) {
+                e.preventDefault();
+                $("#searchInput").val(""); 
+                $("table tbody tr").show(); 
+            });
+        });
+    </script>
+</body>
+</html>
